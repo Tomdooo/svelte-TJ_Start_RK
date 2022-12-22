@@ -1,15 +1,34 @@
 <script>
+    import {PUBLIC_API_URL} from "$env/static/public";
+    import {token} from "../../stores.js";
+
     let body = {
-        username: "hej",
+        username: "",
         password: ""
     }
 
-    let message = {
-        message: "fdsf"
-    }
+    let message = "fdsf"
 
     async function submitForm() {
+        if (body.username.length === 0 && body.password.length === 0) return;
 
+        const res = await fetch(PUBLIC_API_URL+'/token', {
+            method: 'POST',
+            // credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+                // 'Content-Type': 'application/json'
+                'Authorization': 'Basic ' + btoa(body.username + ":" + body.password)
+            }
+            // redirect: '/calendar', // manual, *follow, error
+            // body: JSON.stringify(body) // body data type must match "Content-Type" header
+        })
+
+        if (!res.ok) {
+
+            return;
+        }
+
+        token.set(await res.text())
     }
 </script>
 
@@ -17,8 +36,8 @@
 <div id="login-form-wrap">
 
         <h2>Login</h2>
-        <p id="p-errorMessage">{message.message}</p>
-        <form id="login-form" on:click|preventDefault={submitForm}>
+        <p id="p-errorMessage">{message}</p>
+        <form id="login-form" on:click|preventDefault={submitForm} on:click={submitForm}>
             <p>
                 <label>Uživatelské jméno:
                     <br/> <input type="text" bind:value={body.username} placeholder="Username"/></label>
@@ -26,7 +45,7 @@
             </p>
             <p>
                 <label>Heslo:
-                    <br/><input type="password" bind:value={body.password}/></label>
+                    <br/><input type="password" bind:value={body.password} placeholder="Password"/></label>
                 <br/>
             </p>
             <p>
