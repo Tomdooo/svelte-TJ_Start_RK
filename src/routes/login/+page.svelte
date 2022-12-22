@@ -34,7 +34,6 @@
 
 <!--<div id="login-site">-->
 <div id="login-form-wrap">
-
         <h2>Login</h2>
         <p id="p-errorMessage">{message}</p>
         <form id="login-form" on:click|preventDefault={submitForm} on:click={submitForm}>
@@ -56,12 +55,6 @@
 <!--</div>-->
 
 <style>
-    /*#login-site {*/
-    /*    background-color: #BCD5E8;*/
-    /*    font-size: 1.6rem;*/
-    /*    font-family: "Open Sans", sans-serif;*/
-    /*    align-content: center;*/
-    /*}*/
 
     h2 {
         font-weight: 300;

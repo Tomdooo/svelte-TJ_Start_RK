@@ -1,11 +1,10 @@
 <script>
-    import Komponenta from "../components/Komponenta.svelte";
+
+import AddUser from "../components/AddUser.svelte";
 </script>
 
 <div>
-    <Komponenta>
-        <h1>Ahoj</h1>
-    </Komponenta>
+<AddUser/>
 </div>
 
 <style>
