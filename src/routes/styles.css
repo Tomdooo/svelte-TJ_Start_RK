@@ -95,3 +95,34 @@ select {
     background: none;
     line-height: 30px;
 }
+table, tr, th, td {
+    border: #333 1px solid;
+    border-collapse: collapse;
+    padding: .2em .5em;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    margin-top: 15px;
+}
+
+th {
+    background-color: #147ECF;
+    color: #ffffff;
+}
+#update_table {
+    background-color: #147ECF;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#delete-table {
+    background-color: #c94c4c;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#table-list {
+    overflow-x: auto;
+}
