@@ -35,6 +35,7 @@
 		"@event-calendar/interaction": "^0.14.1",
 		"@event-calendar/list": "^0.14.1",
 		"@event-calendar/resource-time-grid": "^0.14.1",
-		"@event-calendar/time-grid": "^0.14.1"
+		"@event-calendar/time-grid": "^0.14.1",
+		"svelte-simple-modal": "^1.4.5"
 	}
 }
