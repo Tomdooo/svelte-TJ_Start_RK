@@ -1,6 +1,7 @@
 <script>
     import {PUBLIC_API_URL} from "$env/static/public";
-    import {token} from "../../stores.js";
+    import {token, user} from "../../stores.js";
+    import {getCookie} from "../../lib/js/cookie-parser.js";
 
     let body = {
         username: "",
@@ -14,7 +15,7 @@
 
         const res = await fetch(PUBLIC_API_URL+'/token', {
             method: 'POST',
-            // credentials: 'same-origin', // include, *same-origin, omit
+            credentials: 'include', // include, *same-origin, omit
             headers: {
                 // 'Content-Type': 'application/json'
                 'Authorization': 'Basic ' + btoa(body.username + ":" + body.password)
@@ -24,11 +25,12 @@
         })
 
         if (!res.ok) {
-
             return;
         }
 
         token.set(await res.text())
+        user.set(atob(getCookie("jwt_payload")))
+        window.location.replace("/")
     }
 </script>
 
