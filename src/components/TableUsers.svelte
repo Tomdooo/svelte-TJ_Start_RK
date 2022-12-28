@@ -3,37 +3,38 @@
         id:1
 
     };
-    //TODO doplnit z DB
-    let members = [
-        {
-            id:1,
-            role: "ADMIN",
-            firstName: "Václav",
-            lastName: "Buřil",
-            username: "vasek",
-            team: {
-                id: 1 //TODO vyhledat team podle id
-            },
-        },
-        {
-            id:2,
-            role: "USER",
-            firstName: "Tomáš",
-            lastName: "Němeček",
-            username: "tomas",
-            team: {
-                id: 2
-            },
-        }, {
-            id:3,
-            role: "USER",
-            firstName: "Tomáš",
-            lastName: "Němeček",
-            username: "tomas",
-            team: {
-                id: 2
-            },
-        }
+
+    export let members = [
+        // {
+        //     id:1,
+        //     role: "ADMIN",
+        //     firstName: "Václav",
+        //     lastName: "Buřil",
+        //     username: "vasek",
+        //     team: {
+        //         id: 1 //TODO vyhledat team podle id
+        //     },
+        // },
+        // {
+        //     id:2,
+        //     role: "USER",
+        //     firstName: "Tomáš",
+        //     lastName: "Němeček",
+        //     username: "tomas",
+        //     team: {
+        //         id: 2
+        //     },
+        // },
+        // {
+        //     id:3,
+        //     role: "USER",
+        //     firstName: "Tomáš",
+        //     lastName: "Němeček",
+        //     username: "tomas",
+        //     team: {
+        //         id: 2
+        //     },
+        // }
     ];
 
     const setName = (id) => {deleteId.id = id; console.log(deleteId.id)} ;
@@ -41,16 +42,19 @@
 
     //name =  document.getElementById("userName-td").value();
 
-import { writable } from 'svelte/store';
- import Modal, {bind} from 'svelte-simple-modal';
-   import Popup from './PopupDeleteUser.svelte';
-   const modal = writable(null);
-     const showModal = (name) => modal.set(bind (Popup, {name: name}));
+    import { writable } from 'svelte/store';
+    import Modal, {bind} from 'svelte-simple-modal';
+    import Popup from './PopupDeleteUser.svelte';
 
-   // import Modal from './Modal.svelte';
+    const modal = writable(null);
+    const showModal = (name) => modal.set(bind (Popup, {name: name}));
+
+    // import Modal from './Modal.svelte';
     //
      let showModalB = false;
 </script>
+
+
 {#if showModalB}
     <Modal on:close="{() => showModalB = false}">
         {showModal.call()}
@@ -108,6 +112,8 @@ import { writable } from 'svelte/store';
         {/each}
     </table>
 </div>
+
+
 <style>
     /*#th-training {*/
     /*    width: 45%;*/

@@ -38,7 +38,7 @@
 <div id="login-form-wrap">
         <h2>Login</h2>
         <p id="p-errorMessage">{message}</p>
-        <form id="login-form" on:click|preventDefault={submitForm} on:click={submitForm}>
+        <form id="login-form">
             <p>
                 <label>Uživatelské jméno:
                     <br/> <input type="text" bind:value={body.username} placeholder="Username"/></label>
@@ -50,7 +50,7 @@
                 <br/>
             </p>
             <p>
-                <input type="submit" id="login" value="Login">
+                <input type="button" id="login" value="Login" on:click={submitForm}>
             </p>
         </form>
     </div>

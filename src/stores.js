@@ -2,3 +2,4 @@ import {writable} from "svelte/store";
 
 export const token = writable(null)
 export const user = writable(null)
+export const modal = writable({show: false, type: "", details: {}})

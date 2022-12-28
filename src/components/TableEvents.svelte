@@ -1,5 +1,10 @@
 <script>
     //TODO doplnit z DB
+
+    import Modal from "./modal/Modal.svelte";
+    import AddEvent from "./AddEvent.svelte";
+    import {modal} from "../stores.js";
+
     let events = [
         {
             type: "Turnaj",
@@ -49,7 +54,7 @@
                 <td id="note-td">
                     {event.note}
                 </td>
-                <td id="update_table">
+                <td id="update_table" on:click={() => modal.set({show: true, details: {}})} style="cursor: pointer;">
                     Upravit
                     <!--  TODO  <a id="update_table" href="/{{this.id}}/update">Upravit</a>-->
                 </td>
@@ -61,6 +66,10 @@
         {/each}
     </table>
 </div>
+
+
+
+
 
 <style>
     #type-td, #start-td, #end-td, #ministration-td,
