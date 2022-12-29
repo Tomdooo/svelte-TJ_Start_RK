@@ -1,5 +1,5 @@
 <script>
-    import TableUsers from "../../components/TableUsers.svelte";
+    import TableUsers from "../../components/db/tables/TableUsers.svelte";
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
     import {token} from "../../stores.js";

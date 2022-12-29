@@ -39,7 +39,7 @@
     <a class={path === '/matches' ? 'active' : ''} href="/matches">Zápasy</a>
     <a class={path === '/teams' ? 'active' : ''} href="/teams">Týmy</a>
     <a class={path === '/trainings' ? 'active' : ''} href="/trainings">Tréninky</a>
-    <a id="log-out" class="icon" on:click={logout}>
+    <a id="log-out" class="icon" on:click={logout} style="cursor: pointer">
         Odhlásit se
         <i class="fa fa-sign-out"></i>
     </a>

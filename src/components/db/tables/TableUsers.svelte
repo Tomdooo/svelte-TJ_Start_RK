@@ -44,7 +44,7 @@
 
     import { writable } from 'svelte/store';
     import Modal, {bind} from 'svelte-simple-modal';
-    import Popup from './PopupDeleteUser.svelte';
+    import Popup from '../../PopupDeleteUser.svelte';
 
     const modal = writable(null);
     const showModal = (name) => modal.set(bind (Popup, {name: name}));

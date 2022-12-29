@@ -1,15 +1,15 @@
 <script>
-    import AddUser from "../components/AddUser.svelte";
-    import AddEvent from "../components/AddEvent.svelte";
-    import AddMatch from "../components/AddMatch.svelte";
-    import AddTeam from "../components/AddTeam.svelte";
-    import AddTrainings from "../components/AddTrainings.svelte";
+    import AddUser from "../components/db/add/AddUser.svelte";
+    import AddEvent from "../components/db/add/AddEvent.svelte";
+    import AddMatch from "../components/db/add/AddMatch.svelte";
+    import AddTeam from "../components/db/add/AddTeam.svelte";
+    import AddTrainings from "../components/db/add/AddTrainings.svelte";
 
-    import TableUsers from "../components/TableUsers.svelte";
-    import TableEvents from "../components/TableEvents.svelte";
-    import TableMatches from "../components/TableMatches.svelte";
-    import TableTeams from "../components/TableTeams.svelte";
-    import TableTrainings from "../components/TableTrainings.svelte";
+    import TableUsers from "../components/db/tables/TableUsers.svelte";
+    import TableEvents from "../components/db/tables/TableEvents.svelte";
+    import TableMatches from "../components/db/tables/TableMatches.svelte";
+    import TableTeams from "../components/db/tables/TableTeams.svelte";
+    import TableTrainings from "../components/db/tables/TableTrainings.svelte";
 </script>
 
 <div>

@@ -31,9 +31,10 @@
         z-index: 100;
     }
 
-    /*.slot {*/
-    /*    width: fit-content;*/
-    /*    height: fit-content;*/
-    /*}*/
+    .slot {
+        width: fit-content;
+        height: fit-content;
+        margin: auto;
+    }
 </style>
 

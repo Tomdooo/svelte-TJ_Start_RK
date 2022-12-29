@@ -47,10 +47,10 @@ h2{
 }
 form {
     background-color: #ffffff;
-    width: 35%;
+    width: 100%;
     margin: 30px auto;
     text-align: center;
-    padding: 20px 0 0 0;
+    padding: 2rem;
     border-radius: 4px;
     box-shadow: 0px 30px 50px 0px rgba(29, 58, 231, 0.2);
 }
@@ -71,8 +71,8 @@ input {
     border: 1px solid #3d1dbe;
     font-style: normal;
     font-size: 16px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
     appearance: none;
     position: relative;
     background: none;
@@ -115,12 +115,14 @@ th {
     background-color: #147ECF;
     color: #ffffff;
     text-decoration: none;
+    cursor: pointer;
 }
 
 #delete-table {
     background-color: #c94c4c;
     color: #ffffff;
     text-decoration: none;
+    cursor: pointer;
 }
 
 #table-list {

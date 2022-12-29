@@ -8,7 +8,7 @@
         password: ""
     }
 
-    let message = "fdsf"
+    let message = ""
 
     async function submitForm() {
         if (body.username.length === 0 && body.password.length === 0) return;
@@ -23,6 +23,10 @@
             // redirect: '/calendar', // manual, *follow, error
             // body: JSON.stringify(body) // body data type must match "Content-Type" header
         })
+
+        if (res.status === 401) {
+            message = "Špatné uživatelské jméno nebo heslo."
+        }
 
         if (!res.ok) {
             return;
@@ -50,7 +54,7 @@
                 <br/>
             </p>
             <p>
-                <input type="button" id="login" value="Login" on:click={submitForm}>
+                <button type="button" id="login" on:click={submitForm}>Přihlásit se</button>
             </p>
         </form>
     </div>

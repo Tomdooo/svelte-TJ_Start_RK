@@ -22,19 +22,20 @@
         events={
             [
                 {
-                    date: new Date("21-11-2022"),
+                    date: new Date(2022, 12, -5),
+                    text: "Konec světa byl před 10 lety Konec světa byl před 10 lety",
+                    color: "#123456"
+                },
+                {
+                    date: new Date(2022, 12, -14),
                     text: "Konec světa byl před 10 lety"
                 },
                 {
-                    date: new Date("21-12-2022"),
+                    date: new Date(2022, 12, -20),
                     text: "Konec světa byl před 10 lety"
                 },
                 {
-                    date: new Date("21-12-2022"),
-                    text: "Konec světa byl před 10 lety"
-                },
-                {
-                    date: new Date("12-12-2022"),
+                    date: new Date(2022, 12, -20),
                     text: "Konec světa"
                 }
             ]

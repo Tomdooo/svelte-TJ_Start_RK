@@ -2,7 +2,7 @@
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
     import {token} from "../../stores.js";
-    import TableTrainings from "../../components/TableTrainings.svelte";
+    import TableTrainings from "../../components/db/tables/TableTrainings.svelte";
 
     let trainings = []
 

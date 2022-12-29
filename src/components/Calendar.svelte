@@ -82,69 +82,126 @@
 
     // Compare if is same day
     function sameDay(d1, d2) {
-        return d1.getFullYear() === d2.getFullYear() &&
-                d1.getMonth() === d2.getMonth() &&
-                d1.getDate() === d2.getDate();
+        return d1?.getFullYear() === d2?.getFullYear() &&
+                d1?.getMonth() === d2?.getMonth() &&
+                d1?.getDate() === d2?.getDate();
+    }
+
+    function sameMonth(d1, d2) {
+        return d1?.getFullYear() === d2?.getFullYear() &&
+                d1?.getMonth() === d2?.getMonth()
+    }
+
+
+
+
+
+    function test() {
+        events.push({
+            text: "Hello",
+            date: new Date(2022, 12, -9),
+            color: "white",
+            background: "green"
+        })
+        events = events
     }
 
     $: console.log(calendarArray)
+    $: console.log(events)
+    $: console.log(events[0].date)
 </script>
 
 
 <div class="calendar">
     {#each reorderedLabels as label}
-        <div class="cell">{label}</div>
+        <div class="header">{label}</div>
     {/each}
 
-    <!--{#each calendarArray as row}-->
-    <!--    <div class="row">-->
-    <!--        {#each row as cell}-->
-    <!--            <div class="cell" style={cell.getDay() === 0? "background: #039be5" : ""} on:click={() => dispatch("day_click", {date: cell})}>{cell.getDate()}-->
-    <!--                {#each events.filter(v => sameDay(v.date, cell)) as event}-->
-    <!--                    <div>-->
-    <!--                        {test(event)}-->
-    <!--                    </div>-->
-    <!--                {/each}-->
-    <!--            </div>-->
-    <!--        {/each}-->
-    <!--    </div>-->
-    <!--{/each}-->
     {#each calendarArray as cell}
-        <div class="cell" style={cell.date.getDay() === 0? "background: #039be5" : ""} on:click={() => dispatch("day_click", {date: cell.date})}>
-            {cell.date.getDate()}
+        <div class="cell" class:sunday={cell.date.getDay() === 0} class:out={!sameMonth(cell.date, today)}>
+            <span class="date" on:click|self={() => dispatch("day_click", {date: cell.date})}>{cell.date.getDate()}</span>
             {#each cell.events as event}
-                <div style="background: red">
+                <span class="event" style="{(event.color)? 'color:'+event.color : ''};{(event.background)? 'background-color:'+event.background:''}" on:click={() => dispatch("day_click", event)}>
                     {event.text}
-                </div>
+                </span>
             {/each}
         </div>
     {/each}
 </div>
 
 
+<button on:click={test}>reload</button>
+
+
 <style>
     .calendar {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        flex-direction: column;
-        align-items: center;
-        background: greenyellow;
+        grid-template-rows: 2.5rem 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-auto-rows: 1fr;
+        /*background: greenyellow;*/
         width: 100%;
+        min-width: 80rem;
     }
 
     .header {
-        background: #212529;
+        width: 100%;
+        font-size: 1.25rem;
+        text-align: center;
+        padding: 0.5rem 0;
+        background: #147ECF;
         color: white;
+        border: black solid 1px !important;
     }
 
     .cell {
-        width: calc(100% / 7);
-        text-align: center;
+        height: calc(100% - 0.5rem);
+        width: calc(100% - 0.5rem);
+        min-height: 6rem;
+        font-size: 1.125rem;
+        text-align: right;
+        font-weight: bold;
+        border: solid black 1px;
+        overflow: hidden;
+        padding: 0.25rem;
+        background: white;
     }
 
-    .row {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
+    .cell .date {
+        display: block;
+        margin-bottom: 0.125rem;
+        /*background: red;*/
+        width: fit-content;
+        float: right;
+        cursor: pointer;
+    }
+
+    .cell .event {
+        background: #00CC00;
+        width: fit-content;
+        max-width: calc(100% - 0.5rem);
+        padding: 0.2rem 0.5rem;
+        font-size: 1rem;
+        border-radius: 0.4rem;
+        margin: 0.125rem;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .sunday {
+        /*
+        background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100%25' width='100%25'%3E%3Cdefs%3E%3Cpattern id='doodad' width='57' height='57' viewBox='0 0 40 40' patternUnits='userSpaceOnUse' patternTransform=''%3E%3Crect width='100%25' height='100%25' fill='rgba(247, 250, 252,1)'/%3E%3Ccircle cx='20' cy='20' r='10' fill='rgba(178, 245, 234,1)'/%3E%3Ccircle cx='0' cy='40' r='10' fill='rgba(178, 245, 234,1)'/%3E%3Ccircle cx='40' cy='0' r='10' fill='rgba(178, 245, 234,1)'/%3E%3Ccircle cx='0' cy='0' r='10' fill='rgba(178, 245, 234,1)'/%3E%3Ccircle cx='40' cy='40' r='10' fill='rgba(178, 245, 234,1)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23doodad)' height='200%25' width='200%25'/%3E%3C/svg%3E ");
+         */
+        background: #e0edef;
+    }
+
+    .out {
+        color: rgba(30,30,30, 0.5);
+        background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100%25' width='100%25'%3E%3Cdefs%3E%3Cpattern id='doodad' width='25' height='25' viewBox='0 0 40 40' patternUnits='userSpaceOnUse' patternTransform='rotate(135)'%3E%3Crect width='100%25' height='100%25' fill='rgba(247, 250, 252,1)'/%3E%3Cpath d='M-10 30h60v20h-60zM-10-10h60v20h-60' fill='rgba(226, 232, 240,1)'/%3E%3Cpath d='M-10 10h60v2h-60zM-10-30h60v2h-60z' fill='rgba(226, 232, 240,1)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23doodad)' height='200%25' width='200%25'/%3E%3C/svg%3E ");
+        cursor: not-allowed;
+    }
+
+    .out .date, .out .event {
+        cursor: not-allowed;
     }
 </style>

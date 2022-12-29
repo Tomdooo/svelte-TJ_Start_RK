@@ -2,7 +2,7 @@
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
     import {token} from "../../stores.js";
-    import TableMatches from "../../components/TableMatches.svelte";
+    import TableMatches from "../../components/db/tables/TableMatches.svelte";
 
     let matches = []
 

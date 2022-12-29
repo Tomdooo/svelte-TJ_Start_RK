@@ -1,12 +1,9 @@
 <script>
-    //TODO doplnit z DB
+    import {modal} from "../../../stores.js";
+    import {createEventDispatcher} from "svelte";
+    const dispatch = createEventDispatcher();
 
-    import Modal from "./modal/Modal.svelte";
-    import AddEvent from "./AddEvent.svelte";
-    import {modal} from "../stores.js";
-
-    export let events = [
-    ]
+    export let events = []
 </script>
 <div id="table-list">
     <table id="events_table">
@@ -48,13 +45,11 @@
                 <td id="note-td">
                     {event.note}
                 </td>
-                <td id="update_table" on:click={() => modal.set({show: true, details: {}})} style="cursor: pointer;">
+                <td id="update_table" on:click={() => modal.set({show: true, type: "update_event", details: event})}>
                     Upravit
-                    <!--  TODO  <a id="update_table" href="/{{this.id}}/update">Upravit</a>-->
                 </td>
-                <td id="delete-table">
+                <td id="delete-table" on:click={() => dispatch('del', event)}>
                     Odstranit
-                    <!--  TODO  <a id="delete-table" href="/{{this.id}}/delete">Odstranit</a>-->
                 </td>
             </tr>
         {/each}
