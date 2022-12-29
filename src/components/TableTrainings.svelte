@@ -1,28 +1,6 @@
 <script>
     //TODO doplnit z DB
-    let trainings = [
-        {
-            start: "3923-01-10T14:00:00.000+00:00",
-            end: "3923-01-10T14:45:00.000+00:00",
-            header: "1.",
-            note: "",
-            track: 1,
-            member: {
-                id: 3 //TODO vyhledat member podle id
-            },
-            team: null
-        },
-        {
-            start: "3923-01-11T14:00:00.000+00:00",
-            end: "3923-01-11T14:45:00.000+00:00",
-            header: "2.",
-            note: "",
-            track: 2,
-            member: null,
-            team: {
-                id: 1 //TODO vyhledat team podle id
-            }
-        }
+    export let trainings = [
     ]
 </script>
 
@@ -57,9 +35,9 @@
                 </td>
                 <td id="memberOrTeam-td">
                     {#if training.member === null}
-                        {training.team.id}
+                        {training.team.name}
                     {:else}
-                        {training.member.id}
+                        {training.member.firstName} {training.member.lastName}
                     {/if}
                 </td>
                 <td id="update_table">

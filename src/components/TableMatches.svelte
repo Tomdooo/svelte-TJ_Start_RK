@@ -1,19 +1,6 @@
 <script>
     //TODO doplnit z DB
-    let matches = [
-        {
-            header: "aaaaaaaaaaa",
-            note: "bbbbbbbbb",
-            start: "2022-12-26T10:06:41.000+00:00",
-            teams: [
-                {
-                    id: 1 //TODO vyhledat team podle id
-                },
-                {
-                    id: 2//TODO vyhledat team podle id
-                }
-            ]
-        }
+    export let matches = [
     ]
 </script>
 
@@ -37,10 +24,10 @@
                     {match.start}
                 </td>
                 <td id="homeTeam-td">
-                    {match.teams.at(0).id}
+                    {match.teams.at(0).name}
                 </td>
                 <td id="awayTeam-td">
-                    {match.teams.at(1).id}
+                    {match.teams.at(1).name}
                 </td>
                 <td id="note-td">
                     {match.note}

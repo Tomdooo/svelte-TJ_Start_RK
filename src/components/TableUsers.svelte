@@ -86,7 +86,7 @@
                     {member.username}
                 </td>
                 <td id="team-td">
-                    {member.team.id}
+                    {member.team.name}
                 </td>
                 <td id="role-td">
                     {member.role}

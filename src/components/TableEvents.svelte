@@ -6,24 +6,6 @@
     import {modal} from "../stores.js";
 
     export let events = [
-        // {
-        //     type: "Turnaj",
-        //     note: "aaaa",
-        //     start: "3922-12-10T14:00:00.000+00:00",
-        //     end: "3922-12-10T14:45:00.000+00:00",
-        //     ministration: {
-        //         id: 3 //TODO vyhledat membra podle id
-        //     }
-        // },
-        // {
-        //     type: "Turnaj",
-        //     note: "aaaa",
-        //     start: "3923-01-10T14:00:00.000+00:00",
-        //     end: "3923-01-10T14:45:00.000+00:00",
-        //     ministration: {
-        //         id: 4
-        //     }
-        // }
     ]
 </script>
 <div id="table-list">
@@ -49,7 +31,7 @@
                     {event.end}
                 </td>
                 <td id="ministration-td">
-                    {event.ministration.id}
+                    {event.ministration.firstName}  {event.ministration.lastName}
                 </td>
                 <td id="note-td">
                     {event.note}

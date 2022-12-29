@@ -1,13 +1,7 @@
 <script>
     //TODO doplnit z DB
-    let teams = [
-        {
-            name: "aaaa",
-        },
-        {
-            name: "bbbb",
+    export let teams = [
 
-        }
     ]
 </script>
 <div id="table-list">
