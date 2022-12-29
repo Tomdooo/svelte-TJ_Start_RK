@@ -1,9 +1,25 @@
 <script>
     import {token, user} from "../../stores.js";
+    import {PUBLIC_API_URL} from "$env/static/public";
 
-    function logout() {
+    async function logout() {
+        const res = await fetch(PUBLIC_API_URL+'/cookies', {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+                "Authorization": `Bearer ${$token}`
+            }
+        })
+
+        if (!res.ok) {
+            alert("Nepodařilo se odhlásit! Chcete-li to udělat manuálně, smažte prosím soubory cookies pro tuto stránku." )
+            return
+        }
+
         token.set(null);
         user.set(null);
+
+        return window.location.replace("/login")
     }
 </script>
 
