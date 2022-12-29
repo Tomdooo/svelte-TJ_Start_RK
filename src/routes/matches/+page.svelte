@@ -2,16 +2,16 @@
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
     import {token} from "../../stores.js";
-    import TableEvents from "../../components/TableEvents.svelte";
+    import TableMatches from "../../components/TableMatches.svelte";
 
-    let events = []
+    let matches = []
 
     onMount(async () => {
-        events = await load()
+        matches = await load()
     })
 
     async function load() {
-        const res = await fetch(PUBLIC_API_URL+'/events', {
+        const res = await fetch(PUBLIC_API_URL+'/matches', {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + $token
@@ -29,7 +29,7 @@
 </script>
 
 
-<TableEvents
-        events={events}
+<TableMatches
+        matches={matches}
 />
-<button on:click={async () => {events = await load()}}>reload</button>
+<button on:click={async () => {matches = await load()}}>reload</button>
