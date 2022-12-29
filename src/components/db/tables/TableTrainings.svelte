@@ -1,5 +1,8 @@
 <script>
-    //TODO doplnit z DB
+    import {modal} from "../../../stores.js";
+    import {createEventDispatcher} from "svelte";
+    const dispatch = createEventDispatcher();
+
     export let trainings = [
     ]
 </script>
@@ -46,19 +49,19 @@
                     {training.note}
                 </td>
                 <td id="memberOrTeam-td">
-                    {#if training.member === null}
+                    {#if training.member === null && training.team !== null}
                         {training.team.name}
-                    {:else}
+                    {:else if training.member !== null && training.team === null}
                         {training.member.firstName} {training.member.lastName}
+                    {:else}
+                        Tým nebo Uživatel vymazán
                     {/if}
                 </td>
-                <td id="update_table">
+                <td id="update_table" on:click={() => modal.set({show: true, type: "update_training", details: training})}>
                     Upravit
-                    <!--  TODO  <a id="update_table" href="/{{this.id}}/update">Upravit</a>-->
                 </td>
-                <td id="delete-table">
+                <td id="delete-table" on:click={() => dispatch('del', training)}>
                     Odstranit
-                    <!--  TODO  <a id="delete-table" href="/{{this.id}}/delete">Odstranit</a>-->
                 </td>
             </tr>
         {/each}

@@ -2,7 +2,7 @@
     import TableUsers from "../../components/db/tables/TableUsers.svelte";
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
-    import {token} from "../../stores.js";
+    import {reloadData, token} from "../../stores.js";
 
     let members = []
 
@@ -24,11 +24,44 @@
 
         return []
     }
+    /*****************************************/
+    // Reload
+    reloadData.subscribe(async value => {
+        members = await load()
+        reloadData.set(false)
+    })
+
+    /*********************/
+    // Delete
+    let canDelete = true;
+
+    async function del(e){
+        if (!canDelete) return;
+        canDelete = false
+
+        if (confirm("Opravdu to chcete smazat?") === true) {
+            const res = await fetch(PUBLIC_API_URL + `/members/${e.detail.id}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${$token}`
+                },
+            })
+
+            if (!res.ok) {
+                alert("Smazání se nepovedlo, zkuste to znovu.")
+                return canDelete = true
+            }
+
+            members = await load()   // unique
+        }
+        return canDelete=true;
+    }
 </script>
 
 
 <TableUsers
     members={members}
+    on:del={del}
 />
 
 <button on:click={async () => {members = await load()}}>reload</button>

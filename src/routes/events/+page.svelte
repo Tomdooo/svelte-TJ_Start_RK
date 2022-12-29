@@ -56,6 +56,7 @@
 
             events = await load()   // unique
         }
+        return canDelete=true;
     }
 </script>
 

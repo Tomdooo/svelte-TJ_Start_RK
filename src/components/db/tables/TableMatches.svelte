@@ -1,7 +1,11 @@
 <script>
-    //TODO doplnit z DB
-    export let matches = [
-    ]
+    import {createEventDispatcher} from "svelte";
+    import {modal} from "../../../stores.js";
+
+    const dispatch = createEventDispatcher();
+
+    export let matches = []
+    console.log(matches)
 </script>
 
 <div id="table-list">
@@ -30,26 +34,33 @@
                     })}
                 </td>
                 <td id="homeTeam-td">
-                    {match.teams.at(0).name}
+                    {#if match.homeTeam === null}
+                        Tým vymazaný
+                        {:else}
+                    {match.homeTeam.name}
+                        {/if}
                 </td>
                 <td id="awayTeam-td">
-                    {match.teams.at(1).name}
+                    {#if match.awayTeam === null}
+                        Tým vymazaný
+                    {:else}
+                        {match.awayTeam.name}
+                    {/if}
                 </td>
                 <td id="note-td">
                     {match.note}
                 </td>
-                <td id="update_table">
+                <td id="update_table" on:click={() => modal.set({show: true,type: "update_match",details: match})}>
                     Upravit
-                    <!--  TODO  <a id="update_table" href="/{{this.id}}/update">Upravit</a>-->
                 </td>
-                <td id="delete-table">
+                <td id="delete-table" on:click={() => dispatch('del', match)}>
                     Odstranit
-                    <!--  TODO  <a id="delete-table" href="/{{this.id}}/delete">Odstranit</a>-->
                 </td>
             </tr>
         {/each}
     </table>
 </div>
+
 <style>
     #header-td, #start-td, #homeTeam-td, #awayTeam-td,
     #note-td {

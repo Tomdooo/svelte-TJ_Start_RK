@@ -1,65 +1,9 @@
 <script>
-    let deleteId = {
-        id:1
-
-    };
-
-    export let members = [
-        // {
-        //     id:1,
-        //     role: "ADMIN",
-        //     firstName: "Václav",
-        //     lastName: "Buřil",
-        //     username: "vasek",
-        //     team: {
-        //         id: 1 //TODO vyhledat team podle id
-        //     },
-        // },
-        // {
-        //     id:2,
-        //     role: "USER",
-        //     firstName: "Tomáš",
-        //     lastName: "Němeček",
-        //     username: "tomas",
-        //     team: {
-        //         id: 2
-        //     },
-        // },
-        // {
-        //     id:3,
-        //     role: "USER",
-        //     firstName: "Tomáš",
-        //     lastName: "Němeček",
-        //     username: "tomas",
-        //     team: {
-        //         id: 2
-        //     },
-        // }
-    ];
-
-    const setName = (id) => {deleteId.id = id; console.log(deleteId.id)} ;
-
-
-    //name =  document.getElementById("userName-td").value();
-
-    import { writable } from 'svelte/store';
-    import Modal, {bind} from 'svelte-simple-modal';
-    import Popup from '../../PopupDeleteUser.svelte';
-
-    const modal = writable(null);
-    const showModal = (name) => modal.set(bind (Popup, {name: name}));
-
-    // import Modal from './Modal.svelte';
-    //
-     let showModalB = false;
+    import {modal} from "../../../stores.js";
+    import {createEventDispatcher} from "svelte";
+    const dispatch = createEventDispatcher();
+    export let members = [];
 </script>
-
-
-{#if showModalB}
-    <Modal on:close="{() => showModalB = false}">
-        {showModal.call()}
-    </Modal>
-{/if}
 
 
 <div id="table-list">
@@ -86,27 +30,20 @@
                     {member.username}
                 </td>
                 <td id="team-td">
+                    {#if member.team === null}
+                        Tým vymazán
+                        {:else}
                     {member.team.name}
+                        {/if}
                 </td>
                 <td id="role-td">
                     {member.role}
                 </td>
-                <td id="update_table">
+                <td id="update_table" on:click={() => modal.set({show: true, type: "update_user", details: member})}>
                   Upravit
-                    <!--  TODO  <a id="update_table" href="/{{this.id}}/update">Upravit</a>-->
                 </td>
-                <td id="delete-table">
-
-
-                        <a on:click={() => {setName(member.id) ;showModalB = true}}>Odstranit</a>
-<!--                        {#if member.id === deleteId.id}-->
-<!--                            <Modal show={$modal}>-->
-<!--                        <a on:click={() => {showModal(member.username)}}>Odstranit</a>-->
-<!--                            </Modal>-->
-<!--                        {/if}-->
-
-
-                    <!--  TODO  <a id="delete-table" href="/{{this.id}}/delete">Odstranit</a>-->
+                <td id="delete-table" on:click={() => dispatch('del', member)}>
+                    Odstranit
                 </td>
             </tr>
         {/each}

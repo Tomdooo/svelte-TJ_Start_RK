@@ -1,6 +1,7 @@
 <script>
     import {modal} from "../../../stores.js";
     import {createEventDispatcher} from "svelte";
+
     const dispatch = createEventDispatcher();
 
     export let events = []
@@ -23,24 +24,28 @@
                 </td>
                 <td id="start-td">
                     {new Date(event.start).toLocaleTimeString(undefined, {
-                        day:'2-digit',
-                        month:'2-digit',
-                        year:'numeric',
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
                         hour: '2-digit',
                         minute: '2-digit'
                     })}
                 </td>
                 <td id="end-td">
                     {new Date(event.end).toLocaleTimeString(undefined, {
-                        day:'2-digit',
-                        month:'2-digit',
-                        year:'numeric',
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
                         hour: '2-digit',
                         minute: '2-digit'
                     })}
                 </td>
                 <td id="ministration-td">
-                    {event.ministration.firstName}  {event.ministration.lastName}
+                    {#if event.ministration === null}
+                        Uživatel vymazán
+                    {:else}
+                        {event.ministration.firstName}  {event.ministration.lastName}
+                    {/if}
                 </td>
                 <td id="note-td">
                     {event.note}
@@ -55,10 +60,6 @@
         {/each}
     </table>
 </div>
-
-
-
-
 
 <style>
     #type-td, #start-td, #end-td, #ministration-td,

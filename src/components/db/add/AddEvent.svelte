@@ -1,7 +1,5 @@
 <script>
-    //TODO doplnit z databaze
     let members =[
-        "vasek","tom","dan","david"
     ];
 </script>
 

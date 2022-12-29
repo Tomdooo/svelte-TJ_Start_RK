@@ -12,6 +12,7 @@
     import AddTeam from "../components/db/add/AddTeam.svelte";
     import AddMatch from "../components/db/add/AddMatch.svelte";
     import AddTraining from "../components/db/add/AddTraining.svelte";
+    import UpdateTraining from "../components/db/updates/UpdateTraining.svelte";
 
     export let data;
     if (data.token) {
@@ -38,7 +39,7 @@
                 data={$modal.details}
         />
     {:else if $modal.type === "update_training"}
-        <UpdateEvent
+        <UpdateTraining
                 data={$modal.details}
         />
     {:else if $modal.type === "update_user"}

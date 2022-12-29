@@ -5,6 +5,7 @@
     import {PUBLIC_API_URL} from "$env/static/public";
 
     export let data = {}
+    data.ministration = {id: null};
 
     data.start = new Date(data.start).toISOString().slice(0,16)
     data.end = new Date(data.end).toISOString().slice(0,16)

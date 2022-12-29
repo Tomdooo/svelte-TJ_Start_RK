@@ -1,8 +1,5 @@
 <script>
-    // TODO doplnit z databaze
-    let teams =[
-        "a","b","c","Neregistrovaný"
-    ];
+    let teams =[];
 
 </script>
 

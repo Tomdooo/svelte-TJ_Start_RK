@@ -1,8 +1,8 @@
 <script>
-    //TODO doplnit z DB
-    export let teams = [
-
-    ]
+    import {modal} from "../../../stores.js";
+    import {createEventDispatcher} from "svelte";
+    const dispatch = createEventDispatcher();
+    export let teams = []
 </script>
 <div id="table-list">
     <table id="teams-table">
@@ -16,13 +16,11 @@
                 <td id="name-td">
                     {team.name}
                 </td>
-                <td id="update_table">
+                <td id="update_table" on:click={() => modal.set({show: true, type: "update_team", details: team})}>
                     Upravit
-                    <!--  TODO  <a id="update_table" href="/{{this.id}}/update">Upravit</a>-->
                 </td>
-                <td id="delete-table">
+                <td id="delete-table" on:click={() => dispatch('del', team)}>
                     Odstranit
-                    <!--  TODO  <a id="delete-table" href="/{{this.id}}/delete">Odstranit</a>-->
                 </td>
             </tr>
         {/each}
