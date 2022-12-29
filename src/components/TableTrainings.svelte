@@ -19,10 +19,22 @@
         {#each trainings as training}
             <tr>
                 <td id="start-td">
-                    {training.start}
+                    {new Date(training.start).toLocaleTimeString(undefined, {
+                        day:'2-digit',
+                        month:'2-digit',
+                        year:'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })}
                 </td>
                 <td id="end-td">
-                    {training.end}
+                    {new Date(training.end).toLocaleTimeString(undefined, {
+                        day:'2-digit',
+                        month:'2-digit',
+                        year:'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })}
                 </td>
                 <td id="header-td">
                     {training.header}

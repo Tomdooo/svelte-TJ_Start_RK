@@ -25,10 +25,22 @@
                     {event.type}
                 </td>
                 <td id="start-td">
-                    {event.start}
+                    {new Date(event.start).toLocaleTimeString(undefined, {
+                        day:'2-digit',
+                        month:'2-digit',
+                        year:'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })}
                 </td>
                 <td id="end-td">
-                    {event.end}
+                    {new Date(event.end).toLocaleTimeString(undefined, {
+                        day:'2-digit',
+                        month:'2-digit',
+                        year:'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })}
                 </td>
                 <td id="ministration-td">
                     {event.ministration.firstName}  {event.ministration.lastName}
