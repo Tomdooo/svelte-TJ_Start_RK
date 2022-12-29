@@ -3,7 +3,7 @@
     import AddEvent from "../components/db/add/AddEvent.svelte";
     import AddMatch from "../components/db/add/AddMatch.svelte";
     import AddTeam from "../components/db/add/AddTeam.svelte";
-    import AddTrainings from "../components/db/add/AddTrainings.svelte";
+    import AddTrainings from "../components/db/add/AddTraining.svelte";
 
     import TableUsers from "../components/db/tables/TableUsers.svelte";
     import TableEvents from "../components/db/tables/TableEvents.svelte";

@@ -5,6 +5,13 @@
     import AddEvent from "../components/db/add/AddEvent.svelte";
     import Modal from "../components/modal/Modal.svelte";
     import UpdateEvent from "../components/db/updates/UpdateEvent.svelte";
+    import UpdateMatch from "../components/db/updates/UpdateMatch.svelte";
+    import UpdateTeam from "../components/db/updates/UpdateTeam.svelte";
+    import UpdateUser from "../components/db/updates/UpdateUser.svelte";
+    import AddUser from "../components/db/add/AddUser.svelte";
+    import AddTeam from "../components/db/add/AddTeam.svelte";
+    import AddMatch from "../components/db/add/AddMatch.svelte";
+    import AddTraining from "../components/db/add/AddTraining.svelte";
 
     export let data;
     if (data.token) {
@@ -22,7 +29,32 @@
         <UpdateEvent
             data={$modal.details}
         />
-    {:else}
+    {:else if $modal.type === "update_match"}
+        <UpdateMatch
+                data={$modal.details}
+        />
+    {:else if $modal.type === "update_team"}
+        <UpdateTeam
+                data={$modal.details}
+        />
+    {:else if $modal.type === "update_training"}
+        <UpdateEvent
+                data={$modal.details}
+        />
+    {:else if $modal.type === "update_user"}
+        <UpdateUser
+                data={$modal.details}
+        />
+<!-- -------------------------------------- -->
+    {:else if $modal.type === "add_event"}
         <AddEvent/>
+    {:else if $modal.type === "add_match"}
+        <AddMatch/>
+    {:else if $modal.type === "add_team"}
+        <AddTeam/>
+    {:else if $modal.type === "add_training"}
+        <AddTraining/>
+    {:else if $modal.type === "add_user"}
+        <AddUser/>
     {/if}
 </Modal>
