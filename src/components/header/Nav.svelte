@@ -14,7 +14,7 @@
     <a href="/calendar">Kalendář</a>
     <a href="/events">Události</a>
     <a href="/matches">Zápasy</a>
-    <a href="/teams">Tými</a>
+    <a href="/teams">Týmy</a>
     <a href="/trainings">Tréninky</a>
     <button on:click={logout}>logout</button>
 </nav>

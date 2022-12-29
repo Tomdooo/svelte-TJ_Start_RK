@@ -30,7 +30,7 @@
 
         token.set(await res.text())
         user.set(atob(getCookie("jwt_payload")))
-        window.location.replace("/")
+        // window.location.replace("/")
     }
 </script>
 

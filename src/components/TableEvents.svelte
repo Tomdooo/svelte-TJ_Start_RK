@@ -5,25 +5,25 @@
     import AddEvent from "./AddEvent.svelte";
     import {modal} from "../stores.js";
 
-    let events = [
-        {
-            type: "Turnaj",
-            note: "aaaa",
-            start: "3922-12-10T14:00:00.000+00:00",
-            end: "3922-12-10T14:45:00.000+00:00",
-            ministration: {
-                id: 3 //TODO vyhledat membra podle id
-            }
-        },
-        {
-            type: "Turnaj",
-            note: "aaaa",
-            start: "3923-01-10T14:00:00.000+00:00",
-            end: "3923-01-10T14:45:00.000+00:00",
-            ministration: {
-                id: 4
-            }
-        }
+    export let events = [
+        // {
+        //     type: "Turnaj",
+        //     note: "aaaa",
+        //     start: "3922-12-10T14:00:00.000+00:00",
+        //     end: "3922-12-10T14:45:00.000+00:00",
+        //     ministration: {
+        //         id: 3 //TODO vyhledat membra podle id
+        //     }
+        // },
+        // {
+        //     type: "Turnaj",
+        //     note: "aaaa",
+        //     start: "3923-01-10T14:00:00.000+00:00",
+        //     end: "3923-01-10T14:45:00.000+00:00",
+        //     ministration: {
+        //         id: 4
+        //     }
+        // }
     ]
 </script>
 <div id="table-list">
