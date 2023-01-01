@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
-    import {reloadData, token} from "../../stores.js";
+    import {modal, reloadData, token} from "../../stores.js";
     import TableTrainings from "../../components/db/tables/TableTrainings.svelte";
 
     let trainings = []
@@ -60,9 +60,9 @@
     }
 </script>
 
-
+<button on:click={async () => {modal.set({show: true, type: "add_training", details: {}})}}>Přidat</button>
+<button on:click={async () => {trainings = await load()}}>Znovu načíst obsah</button>
 <TableTrainings
         trainings={trainings}
         on:del={del}
 />
-<button on:click={async () => {trainings = await load()}}>reload</button>

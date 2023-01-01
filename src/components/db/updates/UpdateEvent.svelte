@@ -5,12 +5,18 @@
     import {PUBLIC_API_URL} from "$env/static/public";
 
     export let data = {}
-    data.ministration = {id: null};
 
-    data.start = new Date(data.start).toISOString().slice(0,16)
-    data.end = new Date(data.end).toISOString().slice(0,16)
+    data.ministration = data.ministration || {id: null}
+
+    // Setup dates to input
+    data.start = new Date(data.start)
+    data.end = new Date(data.end)
+
+    data.start = (new Date(data.start.getTime() - data.start.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+    data.end = (new Date(data.end.getTime() - data.end.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
 
     data = data
+    ///////////////////////////
 
     let members = [];
 
@@ -34,13 +40,19 @@
         if (!canUpdate) return;
         canUpdate = false
 
+        data.start = new Date(data.start)
+        data.end = new Date(data.end)
+
+        let body = {...data}
+        if (body.ministration.id === null) body.ministration = null
+
         const res = await fetch(PUBLIC_API_URL+'/events', {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${$token}`
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(body)
         })
 
         if (!res.ok) {
@@ -71,6 +83,7 @@
 
     <label for="ministration">Služba:</label><br>
     <select name="ministration" id="ministration" bind:value={data.ministration.id} required>
+<!--        <option value={null}>...</option>-->
         {#each members as member}
             <option value={member.id}>{member.firstName} {member.lastName}</option>
         {/each}

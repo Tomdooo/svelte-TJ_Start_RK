@@ -61,8 +61,9 @@
 </script>
 
 
+<button on:click={async () => {modal.set({show: true, type: "add_event", details: {}})}}>Přidat</button>
+<button on:click={async () => {events = await load()}}>Znovu načíst obsah</button>
 <TableEvents
         events={events}
         on:del={del}
 />
-<button on:click={async () => {events = await load()}}>reload</button>

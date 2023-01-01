@@ -2,7 +2,7 @@
     import TableUsers from "../../components/db/tables/TableUsers.svelte";
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
-    import {reloadData, token} from "../../stores.js";
+    import {modal, reloadData, token} from "../../stores.js";
 
     let members = []
 
@@ -59,9 +59,10 @@
 </script>
 
 
+<button on:click={async () => {modal.set({show: true, type: "add_user", details: {}})}}>Přidat</button>
+<button on:click={async () => {members = await load()}}>Znovu načíst obsah</button>
+
 <TableUsers
     members={members}
     on:del={del}
 />
-
-<button on:click={async () => {members = await load()}}>reload</button>

@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
-    import {reloadData, token} from "../../stores.js";
+    import {modal, reloadData, token} from "../../stores.js";
     import TableMatches from "../../components/db/tables/TableMatches.svelte";
 
     let matches = []
@@ -59,9 +59,10 @@
 
 </script>
 
+<button on:click={async () => {modal.set({show: true, type: "add_match", details: {}})}}>Přidat</button>
+<button on:click={async () => {matches = await load()}}>Znovu načíst obsah</button>
 
 <TableMatches
         matches={matches}
         on:del={del}
 />
-<button on:click={async () => {matches = await load()}}>reload</button>

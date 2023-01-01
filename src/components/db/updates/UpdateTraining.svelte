@@ -87,10 +87,10 @@
 
     <label for="track">Dráha:</label><br>
     <select name="track" id="track" bind:value={data.track} required>
-        <option value="1.">1.</option>
-        <option value="2.">2.</option>
-        <option value="3.">3.</option>
-        <option value="4.">4.</option>
+        <option value={1}>1.</option>
+        <option value={2}>2.</option>
+        <option value={3}>3.</option>
+        <option value={4}>4.</option>
     </select><br>
 
     <button type="button" on:click={update}>Upravit tréning</button>

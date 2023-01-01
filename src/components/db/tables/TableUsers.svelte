@@ -3,6 +3,8 @@
     import {createEventDispatcher} from "svelte";
     const dispatch = createEventDispatcher();
     export let members = [];
+
+    $: console.log(members)
 </script>
 
 
@@ -40,7 +42,7 @@
                     {member.role}
                 </td>
                 <td id="update_table" on:click={() => modal.set({show: true, type: "update_user", details: member})}>
-                  Upravit
+                    Upravit
                 </td>
                 <td id="delete-table" on:click={() => dispatch('del', member)}>
                     Odstranit
