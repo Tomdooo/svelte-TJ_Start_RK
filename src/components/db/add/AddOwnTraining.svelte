@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
-    import {modal, reloadData, token} from "../../../stores.js";
+    import {modal, reloadData, token, user} from "../../../stores.js";
 
     let members = [];
     let teams = [];
@@ -41,8 +41,9 @@
         header: "Trénink",
         note: "",
         track: null,
-        member: null,
-        team: null
+        member: {
+            id: $user.id
+        }
     }
 
     // Setup dates to input
@@ -79,7 +80,7 @@
 <form id="login-form" on:click|preventDefault>
     <h2>Nový trénink</h2><br>
 
-<!--    TODO nevím co dát header-->
+    <!--    TODO nevím co dát header-->
     <label for="header">Název / Typ:</label><br>
     <input type="text" name="header" id="header" placeholder="" bind:value={data.header} required><br>
 
@@ -98,22 +99,6 @@
         <option value={2}>2.</option>
         <option value={3}>3.</option>
         <option value={4}>4.</option>
-    </select><br>
-
-    <label for="member">Člen:</label><br>
-    <select name="member" id="member" bind:value={data.member}>
-        <option value={null}>...</option>
-        {#each members as member}
-            <option value={{id:member.id}}>{member.firstName} {member.lastName}</option>
-        {/each}
-    </select><br>
-
-    <label for="team">Tým:</label><br>
-    <select name="team" id="team" bind:value={data.team}>
-        <option value={null}>...</option>
-        {#each teams as team}
-            <option value={{id:team.id}}>{team.name}</option>
-        {/each}
     </select><br>
 
     <button type="button" on:click={add}>Přidat trénink</button>

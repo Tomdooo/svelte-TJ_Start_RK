@@ -20,6 +20,7 @@
 
     /********************************************/
 
+    export let date;
     export let data = {
         type: "",
         note: "",
@@ -29,6 +30,15 @@
             id: null
         }
     }
+
+    // Setup dates to input
+    if (date) {
+        data.start = (new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+        data.end = (new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+    }
+
+    data = data
+    ///////////////////////////
 
     async function add() {
         if (data.type.length === 0 || !data.start || !data.end || data.ministration.id === null) return;   // check if is not empty (required)

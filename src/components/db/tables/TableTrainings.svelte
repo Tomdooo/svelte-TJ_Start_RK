@@ -12,7 +12,7 @@
         <tr>
             <th>Záčátek</th>
             <th>Konec</th>
-            <th>Typ tréningu</th>
+            <th>Typ tréninku</th>
             <th>Dráha</th>
             <th>Poznámka</th>
             <th>Člen/Team</th>

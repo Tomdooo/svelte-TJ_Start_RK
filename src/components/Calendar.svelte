@@ -27,6 +27,8 @@
     ]
     * */
 
+    $: thisMonth = new Date(year, month, 0)
+
     // Calendar
     $: calendarArray = makeCalendarArray(month, year, offset, events)
 
@@ -91,24 +93,6 @@
         return d1?.getFullYear() === d2?.getFullYear() &&
                 d1?.getMonth() === d2?.getMonth()
     }
-
-
-
-
-
-    function test() {
-        events.push({
-            text: "Hello",
-            date: new Date(2022, 12, -9),
-            color: "white",
-            background: "green"
-        })
-        events = events
-    }
-
-    $: console.log(calendarArray)
-    $: console.log(events)
-    $: console.log(events[0].date)
 </script>
 
 
@@ -118,19 +102,16 @@
     {/each}
 
     {#each calendarArray as cell}
-        <div class="cell" class:sunday={cell.date.getDay() === 0} class:out={!sameMonth(cell.date, today)}>
+        <div class="cell" class:sunday={cell.date.getDay() === 0} class:out={!sameMonth(cell.date, thisMonth)} class:today={sameDay(cell.date, today)}>
             <span class="date" on:click|self={() => dispatch("day_click", {date: cell.date})}>{cell.date.getDate()}</span>
             {#each cell.events as event}
-                <span class="event" style="{(event.color)? 'color:'+event.color : ''};{(event.background)? 'background-color:'+event.background:''}" on:click={() => dispatch("day_click", event)}>
+                <span class="event" style="{(event.color)? 'color:'+event.color : ''};{(event.background)? 'background-color:'+event.background:''}" on:click={() => dispatch("event_click", event)}>
                     {event.text}
                 </span>
             {/each}
         </div>
     {/each}
 </div>
-
-
-<button on:click={test}>reload</button>
 
 
 <style>
@@ -195,6 +176,11 @@
         background: #e0edef;
     }
 
+
+    .today {
+        background: #f4c5c5;
+    }
+
     .out {
         color: rgba(30,30,30, 0.5);
         background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='100%25' width='100%25'%3E%3Cdefs%3E%3Cpattern id='doodad' width='25' height='25' viewBox='0 0 40 40' patternUnits='userSpaceOnUse' patternTransform='rotate(135)'%3E%3Crect width='100%25' height='100%25' fill='rgba(247, 250, 252,1)'/%3E%3Cpath d='M-10 30h60v20h-60zM-10-10h60v20h-60' fill='rgba(226, 232, 240,1)'/%3E%3Cpath d='M-10 10h60v2h-60zM-10-30h60v2h-60z' fill='rgba(226, 232, 240,1)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23doodad)' height='200%25' width='200%25'/%3E%3C/svg%3E ");
@@ -204,4 +190,5 @@
     .out .date, .out .event {
         cursor: not-allowed;
     }
+
 </style>

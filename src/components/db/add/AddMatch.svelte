@@ -20,6 +20,7 @@
 
     /********************************************/
 
+    export let date;
     export let data = {
         header: "",
         note: "",
@@ -28,6 +29,14 @@
         homeTeam: null,
         awayTeam: null
     }
+
+    // Setup dates to input
+    if (date) {
+        data.start = (new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+    }
+
+    data = data
+    ///////////////////////////
 
     async function add() {
         if (data.header.length === 0 || data.league.length === 0 || !data.start || !data.homeTeam || !data.awayTeam) return;   // check if is not empty (required)

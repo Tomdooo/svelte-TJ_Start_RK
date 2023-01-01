@@ -43,8 +43,7 @@
         <nav class="topnav" id="myTopnav">
             <a class={path === '/' ? 'active' : ''} href="/">/</a>
             <a class={path === '/members' ? 'active' : ''} href="/members">Členové</a>
-            <a class={path === '/calendar' ? 'active' : ''} href="/calendar">Kalendář</a>
-            <a class={path === '/events' ? 'active' : ''} href="/events">Události</a>
+            <a class={path === '/events' ? 'active' : ''} href="/events">Akce</a>
             <a class={path === '/matches' ? 'active' : ''} href="/matches">Zápasy</a>
             <a class={path === '/teams' ? 'active' : ''} href="/teams">Týmy</a>
             <a class={path === '/trainings' ? 'active' : ''} href="/trainings">Tréninky</a>
