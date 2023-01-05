@@ -16,7 +16,7 @@
     let members = [];
 
     onMount(async () => {
-        const res = await fetch(PUBLIC_API_URL+'/members', {
+        const res = await fetch(PUBLIC_API_URL + '/members', {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${$token}`
@@ -31,7 +31,7 @@
     let teams = [];
 
     onMount(async () => {
-        const res = await fetch(PUBLIC_API_URL+'/teams', {
+        const res = await fetch(PUBLIC_API_URL + '/teams', {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${$token}`
@@ -46,41 +46,47 @@
     /*****************************************/
     let canUpdate = true
     ;
+
     async function update() {
         if (!canUpdate) return;
-        canUpdate = false
+        if (data.start < data.end) {
+            canUpdate = false
 
-        const res = await fetch(PUBLIC_API_URL+'/trainings', {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${$token}`
-            },
-            body: JSON.stringify(data)
-        })
+            const res = await fetch(PUBLIC_API_URL + '/trainings', {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${$token}`
+                },
+                body: JSON.stringify(data)
+            })
 
-        if (!res.ok) {
-            alert("Úprava se nepovedla, zkuste to znovu.")
-            return canUpdate = true
+            if (!res.ok) {
+                alert("Úprava se nepovedla, zkuste to znovu.")
+                return canUpdate = true
+            }
+
+            reloadData.set(true)
+            modal.set({show: false, type: "", details: {}})
+        } else {
+            return alert("Začátek musí být před koncem")
+
         }
-
-        reloadData.set(true)
-        modal.set({show: false, type: "", details: {}})
     }
 </script>
 
 <!-- TODO dodělat menu -->
-<form id="login-form" >
+<form id="login-form">
     <h2>Nová trénning</h2><br>
 
     <label for="header">Typ tréningu:</label><br>
     <input type="text" name="header" id="header" placeholder="Klasický tréning" bind:value={data.header} required><br>
 
     <label id="start-label" for="start">Start:</label><br>
-    <input type="datetime-local" name="start" id="start" bind:value={data.start}  required><br>
+    <input type="datetime-local" name="start" id="start" bind:value={data.start} required><br>
 
     <label id="end-label" for="end">Konec:</label><br>
-    <input  type="datetime-local" name="end" id="end" bind:value={data.end} required><br>
+    <input type="datetime-local" name="end" id="end" bind:value={data.end} required><br>
 
     <label for="note">Poznámka:</label><br>
     <input type="text" name="note" id="note" bind:value={data.note} required><br>

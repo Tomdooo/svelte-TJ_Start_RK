@@ -21,7 +21,7 @@
     let members = [];
 
     onMount(async () => {
-        const res = await fetch(PUBLIC_API_URL+'/members', {
+        const res = await fetch(PUBLIC_API_URL + '/members', {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${$token}`
@@ -36,32 +36,38 @@
     /*****************************************/
     let canUpdate = true
     ;
+
     async function update() {
         if (!canUpdate) return;
-        canUpdate = false
+        if (data.start < data.end) {
+            canUpdate = false
 
-        data.start = new Date(data.start)
-        data.end = new Date(data.end)
+            data.start = new Date(data.start)
+            data.end = new Date(data.end)
 
-        let body = {...data}
-        if (body.ministration.id === null) body.ministration = null
+            let body = {...data}
+            if (body.ministration.id === null) body.ministration = null
 
-        const res = await fetch(PUBLIC_API_URL+'/events', {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${$token}`
-            },
-            body: JSON.stringify(body)
-        })
+                const res = await fetch(PUBLIC_API_URL + '/events', {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${$token}`
+                    },
+                    body: JSON.stringify(body)
+                })
 
-        if (!res.ok) {
-            alert("Úprava se nepovedla, zkuste to znovu.")
-            return canUpdate = true
+                if (!res.ok) {
+                    alert("Úprava se nepovedla, zkuste to znovu.")
+                    return canUpdate = true
+                }
+
+                reloadData.set(true)
+                modal.set({show: false, type: "", details: {}})
+            }
+         else {
+            return alert("Začátek musí být před koncem")
         }
-
-        reloadData.set(true)
-        modal.set({show: false, type: "", details: {}})
     }
 </script>
 
@@ -76,14 +82,14 @@
     <input type="datetime-local" name="start" id="start" bind:value={data.start} required><br>
 
     <label id="end-label" for="end">Konec:</label><br>
-    <input  type="datetime-local" name="end" id="end" bind:value={data.end} required><br>
+    <input type="datetime-local" name="end" id="end" bind:value={data.end} required><br>
 
     <label for="note">Poznámka:</label><br>
     <input type="text" name="note" id="note" bind:value={data.note}><br>
 
     <label for="ministration">Služba:</label><br>
     <select name="ministration" id="ministration" bind:value={data.ministration.id} required>
-<!--        <option value={null}>...</option>-->
+        <!--        <option value={null}>...</option>-->
         {#each members as member}
             <option value={member.id}>{member.firstName} {member.lastName}</option>
         {/each}

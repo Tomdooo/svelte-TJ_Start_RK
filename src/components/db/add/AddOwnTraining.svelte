@@ -7,7 +7,7 @@
     let teams = [];
 
     onMount(async () => {
-        let res = await fetch(PUBLIC_API_URL+'/members', {
+        let res = await fetch(PUBLIC_API_URL + '/members', {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${$token}`
@@ -20,7 +20,7 @@
 
         ///////////
 
-        res = await fetch(PUBLIC_API_URL+'/teams', {
+        res = await fetch(PUBLIC_API_URL + '/teams', {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${$token}`
@@ -53,26 +53,31 @@
     }
 
     data = data
+
     ///////////////////////////
 
     async function add() {
         if (!data.start || !data.end || data.header.length === 0 || !data.track || (!data.member && !data.team)) return;   // check if is not empty (required)
 
-        const res = await fetch(PUBLIC_API_URL + `/trainings`, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${$token}`,
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
+        if (data.start < data.end) {
+            const res = await fetch(PUBLIC_API_URL + `/trainings`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${$token}`,
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
 
-        if (!res.ok) {
-            return alert("Přidání se nepodařilo, zkuste to znovu.")
+            if (!res.ok) {
+                return alert("Přidání se nepodařilo, zkuste to znovu.")
+            }
+
+            reloadData.set(true)
+            modal.set({show: false, type: "", details: {}})
+        } else {
+            return alert("Začátek musí být před koncem")
         }
-
-        reloadData.set(true)
-        modal.set({show: false, type: "", details: {}})
     }
 </script>
 
@@ -88,7 +93,7 @@
     <input type="datetime-local" name="start" id="start" bind:value={data.start} required><br>
 
     <label id="end-label" for="end">Konec:</label><br>
-    <input  type="datetime-local" name="end" id="end" bind:value={data.end} required><br>
+    <input type="datetime-local" name="end" id="end" bind:value={data.end} required><br>
 
     <label for="note">Poznámka:</label><br>
     <input type="text" name="note" id="note" bind:value={data.note}><br>

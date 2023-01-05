@@ -57,6 +57,7 @@
     async function add() {
         if (!data.start || !data.end || data.header.length === 0 || !data.track || (!data.member && !data.team)) return;   // check if is not empty (required)
 
+        if (data.start<data.end){
         const res = await fetch(PUBLIC_API_URL + `/trainings`, {
             method: "POST",
             headers: {
@@ -72,6 +73,9 @@
 
         reloadData.set(true)
         modal.set({show: false, type: "", details: {}})
+    }else {
+            return alert("Začátek musí být před koncem")
+        }
     }
 </script>
 
