@@ -5,7 +5,6 @@
     const dispatch = createEventDispatcher();
 
     export let matches = []
-    console.log(matches)
 </script>
 
 <div id="table-list">
@@ -22,7 +21,7 @@
         {#each matches as match}
             <tr>
                 <td id="header-td">
-                    {match.header}
+                    {match.league}
                 </td>
                 <td id="start-td">
                     {new Date(match.start).toLocaleTimeString(undefined, {
@@ -35,14 +34,16 @@
                 </td>
                 <td id="homeTeam-td">
                     {#if match.homeTeam === null}
-                        Tým vymazaný
-                        {:else}
-                    {match.homeTeam.name}
-                        {/if}
+<!--                        Tým vymazaný-->
+                        -
+                    {:else}
+                        {match.homeTeam.name}
+                    {/if}
                 </td>
                 <td id="awayTeam-td">
                     {#if match.awayTeam === null}
-                        Tým vymazaný
+<!--                        Tým vymazaný-->
+                        -
                     {:else}
                         {match.awayTeam.name}
                     {/if}

@@ -39,40 +39,41 @@
 
     async function update() {
         if (!canUpdate) return;
-        if (data.start < data.end) {
-            canUpdate = false
+        canUpdate = false
 
+        if (data.start < data.end) {
             data.start = new Date(data.start)
             data.end = new Date(data.end)
 
             let body = {...data}
             if (body.ministration.id === null) body.ministration = null
 
-                const res = await fetch(PUBLIC_API_URL + '/events', {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${$token}`
-                    },
-                    body: JSON.stringify(body)
-                })
+            const res = await fetch(PUBLIC_API_URL + '/events', {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${$token}`
+                },
+                body: JSON.stringify(body)
+            })
 
-                if (!res.ok) {
-                    alert("Úprava se nepovedla, zkuste to znovu.")
-                    return canUpdate = true
-                }
-
-                reloadData.set(true)
-                modal.set({show: false, type: "", details: {}})
+            if (!res.ok) {
+                alert("Úprava se nepovedla, zkuste to znovu.")
+                return canUpdate = true
             }
-         else {
+
+            reloadData.set(true)
+            modal.set({show: false, type: "", details: {}})
+
+        } else {
+            canUpdate = true;
             return alert("Začátek musí být před koncem")
         }
     }
 </script>
 
-<!-- TODO dodělat menu -->
-<form id="login-form">
+
+<form>
     <h2>Upravit akci</h2><br>
 
     <label id="nameAction-label" for="nameAction">Typ:</label><br>

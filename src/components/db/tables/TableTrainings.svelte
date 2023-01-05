@@ -54,7 +54,8 @@
                     {:else if training.member !== null && training.team === null}
                         {training.member.firstName} {training.member.lastName}
                     {:else}
-                        Tým nebo Uživatel vymazán
+<!--                        Tým nebo Uživatel vymazán-->
+                        -
                     {/if}
                 </td>
                 <td id="update_table" on:click={() => modal.set({show: true, type: "update_training", details: training})}>

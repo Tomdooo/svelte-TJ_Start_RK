@@ -57,33 +57,35 @@
     async function add() {
         if (!data.start || !data.end || data.header.length === 0 || !data.track || (!data.member && !data.team)) return;   // check if is not empty (required)
 
-        if (data.start<data.end){
-        const res = await fetch(PUBLIC_API_URL + `/trainings`, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${$token}`,
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
+        if (data.start < data.end) {
+            data.start = new Date(data.start)
+            data.end = new Date(data.end)
 
-        if (!res.ok) {
-            return alert("Přidání se nepodařilo, zkuste to znovu.")
-        }
+            const res = await fetch(PUBLIC_API_URL + `/trainings`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${$token}`,
+                    "Content-Type": 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
 
-        reloadData.set(true)
-        modal.set({show: false, type: "", details: {}})
-    }else {
+            if (!res.ok) {
+                return alert("Přidání se nepodařilo, zkuste to znovu.")
+            }
+
+            reloadData.set(true)
+            modal.set({show: false, type: "", details: {}})
+        } else {
             return alert("Začátek musí být před koncem")
         }
     }
 </script>
 
-<!-- TODO dodělat menu -->
-<form id="login-form" on:click|preventDefault>
+
+<form>
     <h2>Nový trénink</h2><br>
 
-<!--    TODO nevím co dát header-->
     <label for="header">Název / Typ:</label><br>
     <input type="text" name="header" id="header" placeholder="" bind:value={data.header} required><br>
 

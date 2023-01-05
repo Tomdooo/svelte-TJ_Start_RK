@@ -51,10 +51,9 @@
 </script>
 
 
-<form id="login-form">
+<form>
     <h2>Nový člen</h2><br>
 
-    <!--    TODO nevím co dát header-->
     <label for="firstName">Jméno:</label><br>
     <input type="text" name="firstName" id="firstName" bind:value={data.firstName} required><br>
 

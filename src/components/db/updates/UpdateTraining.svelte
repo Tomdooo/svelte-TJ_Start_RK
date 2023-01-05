@@ -44,13 +44,15 @@
     })
 
     /*****************************************/
-    let canUpdate = true
-    ;
+    let canUpdate = true;
 
     async function update() {
         if (!canUpdate) return;
+        canUpdate = false
+
         if (data.start < data.end) {
-            canUpdate = false
+            data.start = new Date(data.start)
+            data.end = new Date(data.end)
 
             const res = await fetch(PUBLIC_API_URL + '/trainings', {
                 method: "PUT",
@@ -68,19 +70,20 @@
 
             reloadData.set(true)
             modal.set({show: false, type: "", details: {}})
-        } else {
-            return alert("Začátek musí být před koncem")
 
+        } else {
+            canUpdate = true
+            return alert("Začátek musí být před koncem")
         }
     }
 </script>
 
-<!-- TODO dodělat menu -->
-<form id="login-form">
-    <h2>Nová trénning</h2><br>
 
-    <label for="header">Typ tréningu:</label><br>
-    <input type="text" name="header" id="header" placeholder="Klasický tréning" bind:value={data.header} required><br>
+<form>
+    <h2>Upravit trénink</h2><br>
+
+    <label for="header">Typ tréninku:</label><br>
+    <input type="text" name="header" id="header" placeholder="" bind:value={data.header} required><br>
 
     <label id="start-label" for="start">Start:</label><br>
     <input type="datetime-local" name="start" id="start" bind:value={data.start} required><br>
@@ -99,7 +102,7 @@
         <option value={4}>4.</option>
     </select><br>
 
-    <button type="button" on:click={update}>Upravit tréning</button>
+    <button type="button" on:click={update}>Upravit trénink</button>
 </form>
 
 <style>

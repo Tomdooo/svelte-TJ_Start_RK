@@ -53,7 +53,7 @@
 </script>
 
 
-<form id="login-form">
+<form>
     <h2>Upravit člena</h2><br>
 
     <label for="firstName">Jméno:</label><br>
@@ -80,6 +80,7 @@
         <option value={"ADMIN"}>Administrátor</option>
     </select><br>
 
+    <button type="button" on:click={() => modal.set({show: true, type: "update_user_password", details: data})}>Změnit heslo</button>
     <button type="button" on:click={update}>Upravit člena</button>
 </form>
 

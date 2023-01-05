@@ -1,6 +1,9 @@
 import {redirect} from "@sveltejs/kit";
 import {PUBLIC_API_URL} from "$env/static/public";
 
+// export const prerender = false;
+// export const ssr = false;
+
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load({cookies, route, fetch}) {
     const userBase64 = cookies.get("jwt_payload");
@@ -21,7 +24,7 @@ export async function load({cookies, route, fetch}) {
 
         return {
             token: await res.text(),
-            user: JSON.parse(atob(userBase64))
+            user: JSON.parse(Buffer.from(userBase64, "base64").toString('utf-8'))
         }
     }
 }

@@ -18,8 +18,6 @@
         calendarEventsArray = await getCalendarEventsArray()
     })
 
-    $: console.log(calendarEventsArray)
-
     async function getCalendarEventsArray() {
         let events = await load("/events", "Nepodařilo se načíst akce.")
         let trainings = await load("/trainings", "Nepodařilo se načíst tréninky.")
@@ -29,6 +27,8 @@
 
         for (let event of events) {
             out.push({
+                detail: event,
+                type: "event",
                 date: new Date(event.start),
                 text: event.type,
                 color: "black",
@@ -38,6 +38,8 @@
 
         for (let training of trainings) {
             out.push({
+                detail: training,
+                type: "training",
                 date: new Date(training.start),
                 text: training.header,
                 color: "black",
@@ -47,10 +49,12 @@
 
         for (let match of matches) {
             out.push({
+                detail: match,
+                type: "match",
                 date: new Date(match.start),
                 text: match.league,
                 color: "black",
-                background: "orange"
+                background: "violet"
             })
         }
 
@@ -83,8 +87,14 @@
     /*********************************************************/
 
     function handleDayClick(e) {
-        console.log(e.detail)
         modal.set({show: true,type: "add_choice",details: {date: e.detail.date}})
+    }
+
+    function handleEventClick(e) {
+        console.log(e.detail)
+        if (e.detail.type === "training") modal.set({show: true, type: "training_detail", details: e.detail.detail});
+        else if (e.detail.type === "event") modal.set({show: true, type: "event_detail", details: e.detail.detail});
+        else if (e.detail.type === "match") modal.set({show: true, type: "match_detail", details: e.detail.detail});
     }
 
     function toPrev() {
@@ -118,6 +128,7 @@
         offset={1}
         labels={["Ne", "Po", "Út", "St", "Čt", "Pá", "So"]}
         on:day_click={handleDayClick}
+        on:event_click={handleEventClick}
         events={calendarEventsArray}
     />
 </div>
@@ -138,7 +149,13 @@
     .calendar-header .text {
         display: inline-block;
         width: 12rem;
-        background: #2b8bc6;
         text-align: center;
+    }
+
+    .calendar-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 1rem;
     }
 </style>

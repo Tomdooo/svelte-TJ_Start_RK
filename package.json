@@ -36,8 +36,9 @@
 		"@event-calendar/list": "^0.14.1",
 		"@event-calendar/resource-time-grid": "^0.14.1",
 		"@event-calendar/time-grid": "^0.14.1",
+		"@sveltejs/adapter-node": "^1.0.0",
+		"axios": "^1.2.1",
 		"express": "^4.18.2",
-		"svelte-simple-modal": "^1.4.5",
-		"axios": "^1.2.1"
+		"svelte-simple-modal": "^1.4.5"
 	}
 }

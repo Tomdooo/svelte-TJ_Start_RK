@@ -22,7 +22,6 @@
 
     export let date;
     export let data = {
-        header: "",
         note: "",
         league: "",
         start: null,
@@ -39,7 +38,9 @@
     ///////////////////////////
 
     async function add() {
-        if (data.header.length === 0 || data.league.length === 0 || !data.start || !data.homeTeam || !data.awayTeam) return;   // check if is not empty (required)
+        if (data.league.length === 0 || !data.start || !data.homeTeam || !data.awayTeam) return;   // check if is not empty (required)
+
+        data.start = new Date(data.start)
 
         const res = await fetch(PUBLIC_API_URL + `/matches`, {
             method: "POST",
@@ -59,12 +60,9 @@
     }
 </script>
 
-<!-- TODO dodělat menu -->
-<form id="login-form" on:click|preventDefault>
-    <h2>Nový zápas</h2><br>
 
-    <label for="heading">Titulek:</label><br>
-    <input type="heading" name="heading" id="heading" bind:value={data.header} required><br>
+<form>
+    <h2>Nový zápas</h2><br>
 
     <label for="header">Liga:</label><br>
     <select name="header" id="header" bind:value={data.league} required>
@@ -102,6 +100,3 @@
     <button type="button" on:click={add}>Přidat nový zápas</button>
 </form>
 
-<style>
-
-</style>

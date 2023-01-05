@@ -4,7 +4,7 @@ import express from 'express';
 
 const app = express();
 
-// add a route that lives separately from the SvelteKit app
+// adds a route that lives separately from the SvelteKit app
 app.get('/healthcheck', (req, res) => {
     res.end('ok');
 });

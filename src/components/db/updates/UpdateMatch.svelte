@@ -64,18 +64,14 @@
         reloadData.set(true)
         modal.set({show: false, type: "", details: {}})
     }
-
-    setTimeout(() => {
-        console.log(data)
-    }, 1000)
 </script>
 
-<!-- TODO dodělat menu -->
-<form id="login-form" on:click|preventDefault>
-    <h2>Nový zápas</h2><br>
+
+<form>
+    <h2>Upravit zápas</h2><br>
 
     <label for="header">Liga:</label><br>
-    <select name="header" id="header" bind:value={data.header} required>
+    <select name="header" id="header" bind:value={data.league} required>
         <option>2. liga</option>
         <option>Divize</option>
         <option>Východočeská soutěž B</option>

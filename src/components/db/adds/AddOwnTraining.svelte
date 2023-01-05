@@ -1,12 +1,13 @@
 <script>
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
-    import {modal, reloadData, token} from "../../../stores.js";
+    import {modal, reloadData, token, user} from "../../../stores.js";
 
     let members = [];
+    let teams = [];
 
     onMount(async () => {
-        const res = await fetch(PUBLIC_API_URL + '/members', {
+        let res = await fetch(PUBLIC_API_URL + '/members', {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${$token}`
@@ -16,18 +17,32 @@
         if (res.ok) {
             members = await res.json()
         }
+
+        ///////////
+
+        res = await fetch(PUBLIC_API_URL + '/teams', {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${$token}`
+            }
+        })
+
+        if (res.ok) {
+            teams = await res.json()
+        }
     })
 
     /********************************************/
 
     export let date;
     export let data = {
-        type: "",
-        note: "",
         start: null,
         end: null,
-        ministration: {
-            id: null
+        header: "Trénink",
+        note: "",
+        track: null,
+        member: {
+            id: $user.id
         }
     }
 
@@ -42,10 +57,10 @@
     ///////////////////////////
 
     async function add() {
-        if (data.type.length === 0 || !data.start || !data.end || data.ministration.id === null) return;   // check if is not empty (required)
+        if (!data.start || !data.end || data.header.length === 0 || !data.track || (!data.member && !data.team)) return;   // check if is not empty (required)
 
         if (data.start < data.end) {
-            const res = await fetch(PUBLIC_API_URL + `/events`, {
+            const res = await fetch(PUBLIC_API_URL + `/trainings`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${$token}`,
@@ -64,15 +79,15 @@
             return alert("Začátek musí být před koncem")
         }
     }
-
 </script>
 
 
-<form id="login-form" on:click|preventDefault>
-    <h2>Nová akce</h2><br>
+<form>
+    <h2>Nový trénink</h2><br>
 
-    <label id="nameAction-label" for="nameAction">Typ:</label><br>
-    <input type="text" name="nameAction" id="nameAction" placeholder="" bind:value={data.type} required><br>
+    <!--    TODO nevím co dát header-->
+    <label for="header">Název / Typ:</label><br>
+    <input type="text" name="header" id="header" placeholder="" bind:value={data.header} required><br>
 
     <label id="start-label" for="start">Start:</label><br>
     <input type="datetime-local" name="start" id="start" bind:value={data.start} required><br>
@@ -83,16 +98,13 @@
     <label for="note">Poznámka:</label><br>
     <input type="text" name="note" id="note" bind:value={data.note}><br>
 
-    <label for="ministration">Služba:</label><br>
-    <select name="ministration" id="ministration" bind:value={data.ministration.id} required>
-        {#each members as member}
-            <option value={member.id}>{member.firstName} {member.lastName}</option>
-        {/each}
+    <label for="track">Dráha:</label><br>
+    <select name="track" id="track" bind:value={data.track} required>
+        <option value={1}>1.</option>
+        <option value={2}>2.</option>
+        <option value={3}>3.</option>
+        <option value={4}>4.</option>
     </select><br>
 
-    <button type="button" on:click={add}>Přidat akci</button>
+    <button type="button" on:click={add}>Přidat trénink</button>
 </form>
-
-<style>
-
-</style>

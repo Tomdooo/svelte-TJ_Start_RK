@@ -42,7 +42,8 @@
                 </td>
                 <td id="ministration-td">
                     {#if event.ministration === null}
-                        Uživatel vymazán
+<!--                        Uživatel vymazán-->
+                        -
                     {:else}
                         {event.ministration.firstName}  {event.ministration.lastName}
                     {/if}

@@ -3,8 +3,6 @@
     import {createEventDispatcher} from "svelte";
     const dispatch = createEventDispatcher();
     export let members = [];
-
-    $: console.log(members)
 </script>
 
 
@@ -33,10 +31,11 @@
                 </td>
                 <td id="team-td">
                     {#if member.team === null}
-                        Tým vymazán
-                        {:else}
-                    {member.team.name}
-                        {/if}
+<!--                        Tým vymazán-->
+                        -
+                    {:else}
+                        {member.team.name}
+                    {/if}
                 </td>
                 <td id="role-td">
                     {member.role}

@@ -34,8 +34,6 @@
 
     function makeCalendarArray (month, year, offset, events) {
         let days = new Date(year, month, 0).getDate();  // number of days in month
-        console.log("Days: " + days)
-        console.log("Date: " + new Date(year, month))
 
         let first = new Date(year, month, 1 - days).getDay() - offset   // map first day in month to current offset
         if (first < 0) {

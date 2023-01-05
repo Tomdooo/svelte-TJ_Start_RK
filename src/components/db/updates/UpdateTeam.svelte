@@ -10,7 +10,7 @@
 
     /*****************************************/
     let canUpdate = true
-    ;
+
     async function update() {
         if (!canUpdate) return;
         canUpdate = false
@@ -34,8 +34,8 @@
     }
 </script>
 
-<!-- TODO dodělat menu -->
-<form id="login-form" on:click|preventDefault>
+
+<form>
     <h2>Upravit tým</h2><br>
 
     <label id="name-label" for="name">Název:</label><br>

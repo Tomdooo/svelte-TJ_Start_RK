@@ -29,8 +29,8 @@
     }
 </script>
 
-<!-- TODO dodělat menu -->
-<form id="login-form" on:click|preventDefault>
+
+<form>
     <h2>Nový tým</h2><br>
 
     <label id="name-label" for="name">Název:</label><br>
@@ -39,6 +39,3 @@
     <button type="button" on:click={add}>Přidat tým</button>
 </form>
 
-<style>
-
-</style>

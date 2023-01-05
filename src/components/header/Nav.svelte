@@ -1,5 +1,5 @@
 <script>
-    import {token, user} from "../../stores.js";
+    import {modal, token, user} from "../../stores.js";
     import {PUBLIC_API_URL} from "$env/static/public";
     import {page} from '$app/stores'
     import {onMount} from "svelte";
@@ -32,6 +32,8 @@
     async function getShow() {
         return await $user !== null
     }
+
+    $: console.log($user)
 </script>
 
 <svelte:head>
@@ -47,9 +49,13 @@
             <a class={path === '/matches' ? 'active' : ''} href="/matches">Zápasy</a>
             <a class={path === '/teams' ? 'active' : ''} href="/teams">Týmy</a>
             <a class={path === '/trainings' ? 'active' : ''} href="/trainings">Tréninky</a>
-            <a id="log-out" class="icon" on:click={logout} style="cursor: pointer">
+
+            <a class="icon right" on:click={logout} style="cursor: pointer">
                 Odhlásit se
                 <i class="fa fa-sign-out"></i>
+            </a>
+            <a class="icon right" on:click={() => modal.set({show: true, type: "user_detail", details: {}})} style="cursor: pointer">
+                {$user.firstName} {$user.lastName}
             </a>
         </nav>
     {/if}
@@ -78,13 +84,13 @@
         color: black;
     }
 
-    #log-out {
-        float: right;
-    }
-
     .topnav a.active {
         background-color: #0420aa;
         color: white;
+    }
+
+    .right {
+        float: right !important;
     }
 
 </style>
