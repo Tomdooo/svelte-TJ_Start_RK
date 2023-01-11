@@ -1,6 +1,6 @@
 <script>
     import {createEventDispatcher} from "svelte";
-    import {modal} from "../../../stores.js";
+    import {modal, user} from "../../../stores.js";
 
     const dispatch = createEventDispatcher();
 
@@ -15,8 +15,10 @@
             <th>Domací</th>
             <th>Hosté</th>
             <th>Poznámka</th>
-            <th></th>
-            <th></th>
+            {#if $user.scope === "ADMIN" || $user.scope === "MODERATOR"}
+                <th></th>
+                <th></th>
+            {/if}
         </tr>
         {#each matches as match}
             <tr>
@@ -51,12 +53,14 @@
                 <td id="note-td">
                     {match.note}
                 </td>
-                <td id="update_table" on:click={() => modal.set({show: true,type: "update_match",details: match})}>
-                    Upravit
-                </td>
-                <td id="delete-table" on:click={() => dispatch('del', match)}>
-                    Odstranit
-                </td>
+                {#if $user.scope === "ADMIN" || $user.scope === "MODERATOR"}
+                    <td id="update_table" on:click={() => modal.set({show: true,type: "update_match",details: match})}>
+                        Upravit
+                    </td>
+                    <td id="delete-table" on:click={() => dispatch('del', match)}>
+                        Odstranit
+                    </td>
+                {/if}
             </tr>
         {/each}
     </table>

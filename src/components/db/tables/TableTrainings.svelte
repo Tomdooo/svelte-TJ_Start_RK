@@ -1,10 +1,9 @@
 <script>
-    import {modal} from "../../../stores.js";
+    import {modal, user} from "../../../stores.js";
     import {createEventDispatcher} from "svelte";
     const dispatch = createEventDispatcher();
 
-    export let trainings = [
-    ]
+    export let trainings = []
 </script>
 
 <div id="table-list">
@@ -58,12 +57,17 @@
                         -
                     {/if}
                 </td>
-                <td id="update_table" on:click={() => modal.set({show: true, type: "update_training", details: training})}>
-                    Upravit
-                </td>
-                <td id="delete-table" on:click={() => dispatch('del', training)}>
-                    Odstranit
-                </td>
+                {#if $user.scope === "ADMIN" || $user.scope === "MODERATOR" || $user.id === training.member?.id}
+                    <td id="update_table" on:click={() => modal.set({show: true, type: "update_training", details: training})}>
+                        Upravit
+                    </td>
+                    <td id="delete-table" on:click={() => dispatch('del', training)}>
+                        Odstranit
+                    </td>
+                {:else}
+                    <td></td>
+                    <td></td>
+                {/if}
             </tr>
         {/each}
     </table>

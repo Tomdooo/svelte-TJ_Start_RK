@@ -1,5 +1,5 @@
 <script>
-    import {modal} from "../../../stores.js";
+    import {modal, user} from "../../../stores.js";
 
     export let data
 
@@ -27,5 +27,7 @@
     <label for="note">Poznámka:</label><br>
     <input type="text" name="note" id="note" value={data.note} disabled><br>
 
-    <button type="button" on:click={() => modal.set({show: true, type: "update_match", details: data})}>Upravit</button>
+    {#if $user.scope === "ADMIN" || $user.scope === "MODERATOR"}
+        <button type="button" on:click={() => modal.set({show: true, type: "update_match", details: data})}>Upravit</button>
+    {/if}
 </form>

@@ -6,8 +6,6 @@
     function handleClickOutside() {
         open = false
     }
-
-    $: console.log(open)
 </script>
 
 

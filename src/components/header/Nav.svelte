@@ -44,7 +44,9 @@
     {#if show}
         <nav class="topnav" id="myTopnav">
             <a class={path === '/' ? 'active' : ''} href="/">/</a>
-            <a class={path === '/members' ? 'active' : ''} href="/members">Členové</a>
+            {#if $user.scope === "ADMIN"}
+                <a class={path === '/members' ? 'active' : ''} href="/members">Členové</a>
+            {/if}
             <a class={path === '/events' ? 'active' : ''} href="/events">Akce</a>
             <a class={path === '/matches' ? 'active' : ''} href="/matches">Zápasy</a>
             <a class={path === '/teams' ? 'active' : ''} href="/teams">Týmy</a>
@@ -55,7 +57,7 @@
                 <i class="fa fa-sign-out"></i>
             </a>
             <a class="icon right" on:click={() => modal.set({show: true, type: "user_detail", details: {}})} style="cursor: pointer">
-                {$user.firstName} {$user.lastName}
+                {$user?.firstName || ""} {$user?.lastName || ""}
             </a>
         </nav>
     {/if}

@@ -2,7 +2,11 @@
     import TableUsers from "../../components/db/tables/TableUsers.svelte";
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
-    import {modal, reloadData, token} from "../../stores.js";
+    import {modal, reloadData, token, user} from "../../stores.js";
+
+    /////
+    if ($user.scope !== "ADMIN") window.location.replace("/");
+    /////
 
     let members = []
 

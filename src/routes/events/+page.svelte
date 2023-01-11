@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import {PUBLIC_API_URL} from "$env/static/public";
-    import {modal, reloadData, token} from "../../stores.js";
+    import {modal, reloadData, token, user} from "../../stores.js";
     import TableEvents from "../../components/db/tables/TableEvents.svelte";
 
     let events = []
@@ -60,9 +60,11 @@
     }
 </script>
 
-
-<button on:click={async () => {modal.set({show: true, type: "add_event", details: {}})}}>Přidat</button>
+{#if $user.scope === "ADMIN" || $user.scope === "MODERATOR"}
+    <button on:click={async () => {modal.set({show: true, type: "add_event", details: {}})}}>Přidat</button>
+{/if}
 <button on:click={async () => {events = await load()}}>Znovu načíst obsah</button>
+
 <TableEvents
         events={events}
         on:del={del}

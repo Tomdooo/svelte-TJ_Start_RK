@@ -1,5 +1,5 @@
 <script>
-    import {modal} from "../../../stores.js";
+    import {modal, user} from "../../../stores.js";
 
     export let data
 
@@ -27,5 +27,13 @@
     <label for="track">Dráha:</label><br>
     <input type="text" name="track" id="track" value={data.track} disabled><br>
 
-    <button type="button" on:click={() => modal.set({show: true, type: "update_training", details: data})}>Upravit</button>
+    <label for="member">Člen:</label><br>
+    <input type="text" name="member" id="member" value={(data.member?.firstName)? (data.member?.firstName + " " + data.member?.lastName) : "-"} disabled><br>
+
+    <label for="team">Tým:</label><br>
+    <input type="text" name="team" id="team" value={data.team?.name || "-"} disabled><br>
+
+    {#if $user.scope === "ADMIN" || $user.scope === "MODERATOR" || $user.id === data.member?.id}
+        <button type="button" on:click={() => modal.set({show: true, type: "update_training", details: data})}>Upravit</button>
+    {/if}
 </form>

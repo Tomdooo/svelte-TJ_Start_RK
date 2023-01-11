@@ -1,5 +1,5 @@
 <script>
-    import {modal} from "../../../stores.js";
+    import {modal, user} from "../../../stores.js";
     import {createEventDispatcher} from "svelte";
     const dispatch = createEventDispatcher();
     export let members = [];
@@ -8,15 +8,16 @@
 
 <div id="table-list">
     <table id="users_table">
-
         <tr>
             <th>Jméno</th>
             <th>Příjmení</th>
             <th>Username</th>
             <th>Tým</th>
             <th>Role</th>
-            <th></th>
-            <th></th>
+            {#if $user.scope === "ADMIN"}
+                <th></th>
+                <th></th>
+            {/if}
         </tr>
         {#each members as member}
             <tr>
@@ -40,12 +41,14 @@
                 <td id="role-td">
                     {member.role}
                 </td>
-                <td id="update_table" on:click={() => modal.set({show: true, type: "update_user", details: member})}>
-                    Upravit
-                </td>
-                <td id="delete-table" on:click={() => dispatch('del', member)}>
-                    Odstranit
-                </td>
+                {#if $user.scope === "ADMIN"}
+                    <td id="update_table" on:click={() => modal.set({show: true, type: "update_user", details: member})}>
+                        Upravit
+                    </td>
+                    <td id="delete-table" on:click={() => dispatch('del', member)}>
+                        Odstranit
+                    </td>
+                {/if}
             </tr>
         {/each}
     </table>

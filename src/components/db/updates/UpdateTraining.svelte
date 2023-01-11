@@ -1,37 +1,14 @@
 <script>
-    import {onMount} from "svelte";
-    import {modal, reloadData, token} from "../../../stores.js";
+    import {modal, reloadData, token, user} from "../../../stores.js";
     import {PUBLIC_API_URL} from "$env/static/public";
+    import {onMount} from "svelte";
 
-    export let data = {}
-    data.start = new Date(data.start)
-    data.end = new Date(data.end)
-
-    data.start = (new Date(data.start.getTime() - data.start.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
-
-    data.end = (new Date(data.end.getTime() - data.end.getTimezoneOffset() * 60000).toISOString()).slice(0, -1)
-
-    data = data
 
     let members = [];
-
-    onMount(async () => {
-        const res = await fetch(PUBLIC_API_URL + '/members', {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${$token}`
-            }
-        })
-
-        if (res.ok) {
-            members = await res.json()
-        }
-    })
-
     let teams = [];
 
     onMount(async () => {
-        const res = await fetch(PUBLIC_API_URL + '/teams', {
+        let res = await fetch(PUBLIC_API_URL+'/members', {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${$token}`
@@ -41,7 +18,38 @@
         if (res.ok) {
             members = await res.json()
         }
+
+        ///////////
+
+        res = await fetch(PUBLIC_API_URL+'/teams', {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${$token}`
+            }
+        })
+
+        if (res.ok) {
+            teams = await res.json()
+        }
+
+        data = data
     })
+
+    ///////////
+
+    export let data = {}
+
+    data.start = new Date(data.start)
+    data.start = (new Date(data.start.getTime() - data.start.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+    data.end = new Date(data.end)
+    data.end = (new Date(data.end.getTime() - data.end.getTimezoneOffset() * 60000).toISOString()).slice(0, -1)
+
+    data.member = data.member || {id: null}
+    data.team = data.team || {id: null}
+
+    data = data
+
+    ///////////
 
     /*****************************************/
     let canUpdate = true;
@@ -51,8 +59,13 @@
         canUpdate = false
 
         if (data.start < data.end) {
-            data.start = new Date(data.start)
-            data.end = new Date(data.end)
+            let body = {...data}
+
+            body.start = new Date(body.start)
+            body.end = new Date(body.end)
+
+            if (body.member.id === null) body.member = null;
+            if (body.team.id === null) body.team = null;
 
             const res = await fetch(PUBLIC_API_URL + '/trainings', {
                 method: "PUT",
@@ -60,7 +73,7 @@
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${$token}`
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(body)
             })
 
             if (!res.ok) {
@@ -94,13 +107,29 @@
     <label for="note">Poznámka:</label><br>
     <input type="text" name="note" id="note" bind:value={data.note} required><br>
 
-    <label for="track">Dráha:</label><br>
-    <select name="track" id="track" bind:value={data.track} required>
-        <option value={1}>1.</option>
-        <option value={2}>2.</option>
-        <option value={3}>3.</option>
-        <option value={4}>4.</option>
-    </select><br>
+<!--    <label for="track">Dráha:</label><br>-->
+<!--    <select name="track" id="track" bind:value={data.track} required>-->
+<!--        <option value={1}>1.</option>-->
+<!--        <option value={2}>2.</option>-->
+<!--        <option value={3}>3.</option>-->
+<!--        <option value={4}>4.</option>-->
+<!--    </select><br>-->
+
+    {#if $user.scope === "ADMIN" || $user.scope === "MODERATOR"}
+        <label for="member">Člen:</label><br>
+        <select name="member" id="member" bind:value={data.member.id}>
+            {#each members as member}
+                <option value={member.id}>{member.firstName} {member.lastName}</option>
+            {/each}
+        </select><br>
+
+        <label for="team">Tým:</label><br>
+        <select name="team" id="team" bind:value={data.team.id}>
+            {#each teams as team}
+                <option value={team.id}>{team.name}</option>
+            {/each}
+        </select><br>
+    {/if}
 
     <button type="button" on:click={update}>Upravit trénink</button>
 </form>

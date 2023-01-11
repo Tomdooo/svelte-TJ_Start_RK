@@ -1,5 +1,5 @@
 <script>
-    import {modal} from "../../../stores.js";
+    import {modal, user} from "../../../stores.js";
 
     export let data
 
@@ -29,5 +29,7 @@
     <label for="ministration">Služba:</label><br>
     <input type="text" name="ministration" id="ministration" value={ministration} disabled><br>
 
-    <button type="button" on:click={() => modal.set({show: true, type: "update_event", details: data})}>Upravit</button>
+    {#if $user.scope === "ADMIN" || $user.scope === "MODERATOR"}
+        <button type="button" on:click={() => modal.set({show: true, type: "update_event", details: data})}>Upravit</button>
+    {/if}
 </form>
