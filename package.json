@@ -2,7 +2,7 @@
 	"name": "tj-start-rk-svelte",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --host 0.0.0.0",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
@@ -31,14 +31,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@event-calendar/day-grid": "^0.14.1",
-		"@event-calendar/interaction": "^0.14.1",
-		"@event-calendar/list": "^0.14.1",
-		"@event-calendar/resource-time-grid": "^0.14.1",
-		"@event-calendar/time-grid": "^0.14.1",
 		"@sveltejs/adapter-node": "^1.0.0",
-		"axios": "^1.2.1",
-		"express": "^4.18.2",
-		"svelte-simple-modal": "^1.4.5"
+		"dotenv": "^16.0.3"
 	}
 }

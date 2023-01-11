@@ -73,7 +73,7 @@
             return await res.json() || []
         }
 
-        alert(errorText)
+        // alert(errorText)
         return []
     }
 

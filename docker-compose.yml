@@ -1,0 +1,15 @@
+version: "3"
+services:
+  node:
+#    image: "node:19"
+#    user: "node"
+#    working_dir: /home/node/app
+    build: .
+    environment:
+      - PUBLIC_API_URL=http://localhost:8080
+      - PORT=5173
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - "5173:5173"
+#    command: "npm start"
