@@ -40,9 +40,9 @@
 
 <!--<div id="login-site">-->
 <div id="login-form-wrap">
-        <h2>Login</h2>
-        <p id="p-errorMessage">{message}</p>
         <form id="login-form">
+            <h2>Login</h2>
+            <p id="p-errorMessage">{message}</p>
             <p>
                 <label>Uživatelské jméno:
                     <br/> <input type="text" bind:value={body.username} placeholder="Username"/></label>
@@ -90,17 +90,16 @@
     }
 
     #login-form-wrap {
-        background-color: #ffffff;
         width: 35%;
         margin: 30px auto;
         text-align: center;
-        padding: 20px 0 0 0;
+        padding: 0;
         border-radius: 4px;
         box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
     }
 
     #login-form {
-        padding: 0 60px;
+        padding: 0 60px 0 60px;
     }
 
     input {
