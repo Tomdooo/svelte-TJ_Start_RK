@@ -1,11 +1,11 @@
-FROM node:19-alpine
+FROM node:19
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
-EXPOSE 5000
+EXPOSE 5173
 ENV HOST=0.0.0.0
-
+ENV PUBLIC_API_URL=http://localhost:8080
 CMD npm run dev
 #CMD ["npm", "start"]
 
