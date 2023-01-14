@@ -1,40 +1,40 @@
-# create-svelte
+# TJ Start RK
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Instalace a běh
+Bohužel se nám nepodařilo rozchodit Docker zde na frontendu, vždy jsme narazili na záhadný problém, kdy část aplikace fungovala a zbytek byl naprosto rozbitý. Po dvou a půl dnech řešení Dockeru jsme tak plně zprovoznili pouze API. Tuto FE část, tedy Svelte aplikaci, je tak nutno spustit manuálně pomocí `Node.js`. Neúspěšný pokus s Dockerem se stále v repozitáři nachází.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
 ```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
+Aplikace se poté spustí na adrese http://localhost:5173.
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+***Pro správný chod aplikace je nutné spustit i část s API, repozitář zde:** https://github.com/Tomdooo/java-TJ_Start_RK.git*
 
 
+## Používání
+Při načtení webové stránky s aplikací je nutno se nejprve přihlásit. V API jsou předvytvořené 2 účty:
+
+> username: *tomas*\
+> password: *Password123@*\
+> role: *USER*
+
+> username: *vasek*\
+> password: *Password123@*\
+> role: *ADMIN*
+
+### Kalendář
+Na stránce s kalendářem se všem zobrazují všechny události, kterých jsou 3 typy:
+- tréninky
+- zápasy
+- akce
+
+Při kliknutí na danou událost se zobrazí její detail. Pokud má uživatel dostatečná oprávnění (Moderátor nebo Admin), může dále přejít na úpravu události.
+
+Při kliknutí na číslo zobrazující aktuální den v měsíci se objeví okno, ve kterém mohou uživatelé přidávat nové události. Běžní uživatelé mohou přidávat pouze vlastní tréninky, moderátoři a administrátoři pak mohou přidávat i týmové tréninky, či zápasy a akce.
+
+### Tabulky
+Aplikace dále obsahuje nekolik cest, které slouží k zobrazení tabulek se záznamy z databáze, rozdělené podle databázových entit. Zde vždy mohou moderátoři a administrátoři přidávat záznamy, upravovat je či je odstraňovat.
+
+### Uživatelské účty
+Uživatelské účty může přidávat a upravovat vždy jen administrátor - jedná se o malé sdružení, tudíž toto prosté řešení má smysl. Běžní uživatelé své účty nijak nespravují, pouze využívají služby kalendáře.
