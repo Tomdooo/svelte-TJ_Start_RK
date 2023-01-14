@@ -9,4 +9,4 @@ npm run dev
 ```
 Aplikace se poté spustí na adrese http://localhost:5173.
 
-Pro správný chod aplikace je nutné spustit i část s API, repozitář zde: https://github.com/Tomdooo/java-TJ_Start_RK.git
+***Pro správný chod aplikace je nutné spustit i část s API, repozitář zde:** https://github.com/Tomdooo/java-TJ_Start_RK.git*
